@@ -94,7 +94,7 @@ h2.disp{margin:12px 0 0;font-size:clamp(30px,4vw,48px);line-height:1.02}
 
 /* visualizer */
 .viz{display:flex;flex-wrap:wrap;gap:28px;margin-top:40px;align-items:stretch}
-.scene{flex:999 1 560px;min-width:0;position:relative;height:460px;border-radius:4px;overflow:hidden;background:#BFC4C8;perspective:900px;border:1px solid var(--line2)}
+.scene{flex:999 1 560px;min-width:0;position:relative;height:460px;border-radius:4px;overflow:hidden;background:#BFC4C8;border:1px solid var(--line2)}
 .wall{position:absolute;left:0;right:0;top:0;height:46%;background-color:#B7BCC0;background-image:repeating-linear-gradient(90deg,transparent 0 159px,#9DA3A866 159px 161px),repeating-linear-gradient(0deg,transparent 0 79px,#9DA3A855 79px 81px)}
 .base{position:absolute;left:0;right:0;top:calc(46% - 10px);height:10px;background:#8E959B}
 .floor{position:absolute;left:-40%;right:-40%;bottom:-12%;height:74%;transform:rotateX(62deg);transform-origin:50% 100%;transition:background .3s}
@@ -106,6 +106,10 @@ h2.disp{margin:12px 0 0;font-size:clamp(30px,4vw,48px);line-height:1.02}
 .swatches{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
 .sw{width:48px;height:48px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1px var(--line2);cursor:pointer;padding:0}
 .sw[aria-pressed=true]{border-color:var(--orange);box-shadow:0 0 0 1px var(--orange)}
+.sw-custom{position:relative;display:inline-block;background:conic-gradient(#e74c3c,#f1c40f,#2ecc71,#1abc9c,#3498db,#9b59b6,#e74c3c)}
+.sw-custom input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;border:0;padding:0}
+.sw-custom.on{border-color:var(--orange);box-shadow:0 0 0 1px var(--orange)}
+.sw-custom:focus-within{outline:3px solid var(--orange);outline-offset:2px}
 .readout{border-top:1px solid #E1E4E7;padding-top:22px;display:flex;flex-direction:column;gap:10px}
 .readout .disp{font-size:22px;font-stretch:115%}
 .readout p{margin:0;font-size:15px;color:var(--body)}
@@ -120,9 +124,9 @@ h2.disp{margin:12px 0 0;font-size:clamp(30px,4vw,48px);line-height:1.02}
 .ba-copy em{font-style:normal;color:var(--teal-b)}
 .ba-wrap{flex:999 1 560px;min-width:0}
 .ba{position:relative;height:400px;border-radius:4px;overflow:hidden;border:1px solid var(--line-d);touch-action:none;cursor:ew-resize}
-.ba-before{position:absolute;inset:0;background:radial-gradient(ellipse 30% 22% at 28% 38%,#4e4a44aa,transparent 70%),radial-gradient(ellipse 18% 14% at 72% 72%,#3a362fcc,transparent 70%),radial-gradient(ellipse 12% 9% at 58% 28%,#2f2c27aa,transparent 70%),radial-gradient(circle,#6f6c66 0 1px,transparent 1.5px) 0 0/9px 9px,radial-gradient(circle,#b4b1aa 0 1px,transparent 1.5px) 4px 5px/11px 11px,#9A978F}
+.ba-before{position:absolute!important;inset:0}
 .ba svg{position:absolute;inset:0;width:100%;height:100%}
-.ba-after{position:absolute;inset:0}
+.ba-after{position:absolute!important;inset:0}
 .ba-line{position:absolute;top:0;bottom:0;width:3px;margin-left:-1.5px;background:var(--orange)}
 .ba-line::after{content:"⇆";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:var(--orange);color:var(--navy);display:grid;place-items:center;font-size:18px;font-weight:700}
 .ba-lbl{position:absolute;top:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;padding:7px 10px;border-radius:2px}
@@ -249,7 +253,7 @@ form .btn{min-height:54px}
       </div>
     </div>
     <div class="tile">
-      <div class="tile-floor sheen" data-floor></div>
+      <div class="tile-floor" id="heroFloor"></div>
       <div class="spec3">
         <div><small>System</small><strong data-bind="short"></strong></div>
         <div><small>Color</small><strong data-bind="color"></strong></div>
@@ -283,11 +287,7 @@ form .btn{min-height:54px}
   <div class="eyebrow">02 — Floor visualizer</div>
   <h2 class="disp">See it before we pour it.</h2>
   <div class="viz">
-    <div class="scene" role="img" aria-label="Preview of the selected floor coating in a garage">
-      <div class="wall"></div>
-      <div class="base"></div>
-      <div class="floor" data-floor></div>
-      <div class="glow"></div>
+    <div class="scene" id="vizScene">
       <div class="tags"><span data-bind="name"></span><span data-bind="color"></span></div>
     </div>
     <div class="panel">
@@ -319,14 +319,8 @@ form .btn{min-height:54px}
     </div>
     <div class="ba-wrap">
       <div class="ba" id="ba">
-        <div class="ba-before"></div>
-        <svg aria-hidden="true" viewBox="0 0 800 400" preserveAspectRatio="none">
-          <path d="M0 140 L120 150 L190 128 L300 170 L360 160 L470 215 L560 205 L640 260 L800 250" fill="none" stroke="#3b3833" stroke-width="2.5"/>
-          <path d="M300 170 L320 240 L290 330 L310 400" fill="none" stroke="#3b3833" stroke-width="2"/>
-          <path d="M560 205 L600 120 L590 40 L620 0" fill="none" stroke="#45413b" stroke-width="1.6"/>
-          <path d="M0 300 L800 300" fill="none" stroke="#7b7871" stroke-width="3"/>
-        </svg>
-        <div class="ba-after sheen" data-floor></div>
+        <div class="ba-before" id="baBefore"></div>
+        <div class="ba-after" id="baAfter"></div>
         <div class="ba-line"></div>
         <span class="ba-lbl a">AFTER</span>
         <span class="ba-lbl b">BEFORE</span>
@@ -367,7 +361,7 @@ form .btn{min-height:54px}
     <div class="est-out" aria-live="polite">
       <div class="label">Estimated investment</div>
       <div class="est-num"><span style="color:inherit" data-bind="low"></span><br><span>– <span data-bind="high"></span></span></div>
-      <div class="est-floor sheen" data-floor></div>
+      <div class="est-floor" id="estFloor"></div>
       <div class="spec2">
         <div><small>SYSTEM</small><strong data-bind="short"></strong></div>
         <div><small>RATE / SQ FT</small><strong data-bind="rate"></strong></div>
@@ -454,6 +448,7 @@ form .btn{min-height:54px}
   <div class="wrap ftr-bot"><span>© 2026 Concrete Canvas</span><span>Licensed &amp; insured · [LICENSE #]</span></div>
 </footer>
 
+<script src="../assets/floor-engine.js"></script>
 <script>
 (function(){
 var FINISHES=[
@@ -474,16 +469,10 @@ var COLORS=[
 var PRESETS=[['1-Car',250],['2-Car',450],['3-Car',650],['Basement',900],['Shop',1800]];
 var CONDS=[{id:'good',label:'Good',hint:'Sound, minor wear',m:1},{id:'fair',label:'Fair',hint:'Cracks, light pitting',m:1.12},{id:'rough',label:'Rough',hint:'Spalling, old coating',m:1.3}];
 
-function tex(f,c){
- var B=c.base,L=c.light,D=c.dark;
- if(f==='flake')return 'radial-gradient(circle at 20% 30%, '+L+' 0 2px, transparent 2.6px) 0 0/13px 13px, radial-gradient(circle at 70% 60%, '+D+' 0 2.4px, transparent 3px) 0 0/17px 19px, radial-gradient(circle at 45% 85%, #ffffff 0 1.6px, transparent 2.2px) 0 0/23px 21px, radial-gradient(circle at 85% 20%, #111418 0 1.4px, transparent 2px) 0 0/11px 15px, radial-gradient(circle at 10% 70%, '+L+' 0 1.8px, transparent 2.4px) 0 0/29px 27px, '+B;
- if(f==='metallic')return 'radial-gradient(ellipse 55% 35% at 28% 32%, '+L+'cc, transparent 70%), radial-gradient(ellipse 45% 60% at 78% 68%, '+D+', transparent 70%), radial-gradient(ellipse 30% 20% at 60% 20%, #ffffff55, transparent 70%), radial-gradient(ellipse 25% 40% at 15% 80%, '+L+'88, transparent 70%), conic-gradient(from 210deg at 52% 48%, '+B+', '+L+', '+D+', '+B+', '+L+'aa, '+D+', '+B+')';
- if(f==='quartz')return 'radial-gradient(circle, '+L+' 0 1px, transparent 1.4px) 0 0/5px 5px, radial-gradient(circle, '+D+' 0 1.1px, transparent 1.5px) 2px 3px/6px 7px, radial-gradient(circle, #ffffffaa 0 .8px, transparent 1.2px) 1px 1px/7px 6px, '+B;
- if(f==='solid')return 'linear-gradient(160deg, #ffffff30 0%, transparent 38%, transparent 70%, #00000025 100%), '+B;
- if(f==='cementitious')return 'radial-gradient(ellipse 40% 30% at 25% 30%, '+L+'66, transparent 70%), radial-gradient(ellipse 35% 45% at 70% 60%, '+D+'55, transparent 70%), radial-gradient(ellipse 25% 20% at 50% 85%, '+L+'44, transparent 70%), radial-gradient(circle, #00000018 0 .7px, transparent 1px) 0 0/4px 4px, '+B;
- return 'radial-gradient(circle, #00000026 0 .8px, transparent 1.2px) 0 0/5px 5px, radial-gradient(circle, #ffffff1c 0 .8px, transparent 1.2px) 2px 2px/6px 6px, '+B;
-}
 
+var CUSTOM={id:'custom',name:'Custom color',base:'#7a2e8c',light:'#d6a6e3',dark:'#33103d'};
+function colorById(id){return id==='custom'?CUSTOM:COLORS.filter(function(x){return x.id===id})[0]}
+function pal(c){return {base:c.base,light:c.light,dark:c.dark}}
 var S={finish:'flake',color:'teal',sqft:450,cond:'good',ba:55,detailsTouched:false};
 var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
 function el(tag,attrs,html){var e=document.createElement(tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(html!=null)e.innerHTML=html;return e}
@@ -511,6 +500,19 @@ COLORS.forEach(function(c){
  b.addEventListener('click',function(){set({color:c.id})});
  $('#swatches').appendChild(b);
 });
+var cw=el('label',{class:'sw sw-custom',title:'Custom color'},'<input type="color" value="#7a2e8c" aria-label="Pick a custom color">');
+cw.querySelector('input').addEventListener('input',function(e){var d=FloorEngine.derive(e.target.value);CUSTOM.base=d.base;CUSTOM.light=d.light;CUSTOM.dark=d.dark;set({color:'custom'})});
+$('#swatches').appendChild(cw);
+
+// realistic floor renders (recolored live)
+var FE=FloorEngine, cur=function(){return {finish:S.finish,color:pal(colorById(S.color))}};
+FE.bind($('#heroFloor'),{scene:'closeup',maxWidth:900,label:'Close-up of the selected floor finish'},cur);
+FE.bind($('#vizScene'),{scene:'garage',label:'The selected finish in a two-car garage'},cur);
+FE.bind($('#baBefore'),{scene:'garage',label:'Garage floor before: cracked, stained concrete'},function(){return {finish:'bare'}});
+FE.bind($('#baAfter'),{scene:'garage'},cur);
+FE.bind($('#estFloor'),{scene:'swatch',maxWidth:700},cur);
+$$('[data-sw]').forEach(function(n){var id=n.getAttribute('data-sw');FE.bind(n,{scene:'swatch',maxWidth:560},function(){return {finish:id,color:pal(colorById(S.color))}})});
+$$('[data-color]').forEach(function(n){var id=n.getAttribute('data-color');FE.bind(n,{flat:true},function(){return {finish:S.finish,color:pal(colorById(id))}})});
 PRESETS.forEach(function(p){
  var b=el('button',{type:'button',class:'chip','data-preset':p[1],'aria-pressed':'false'},p[0]+' · '+p[1]);
  b.addEventListener('click',function(){set({sqft:p[1]})});
@@ -542,12 +544,10 @@ $('#again').addEventListener('click',function(){$('#qform').reset();S.detailsTou
 function set(p){for(var k in p)S[k]=p[k];render()}
 function render(){
  var f=FINISHES.filter(function(x){return x.id===S.finish})[0];
- var c=COLORS.filter(function(x){return x.id===S.color})[0];
+ var c=colorById(S.color);
  var k=CONDS.filter(function(x){return x.id===S.cond})[0];
- var bg=tex(f.id,c);
- $$('[data-floor]').forEach(function(n){n.style.background=bg});
- $$('[data-sw]').forEach(function(n){n.style.background=tex(n.getAttribute('data-sw'),c)});
- $$('[data-color]').forEach(function(n){var cc=COLORS.filter(function(x){return x.id===n.getAttribute('data-color')})[0];n.style.background=tex(f.id,cc);n.setAttribute('aria-pressed',cc.id===S.color)});
+ $$('[data-color]').forEach(function(n){n.setAttribute('aria-pressed',n.getAttribute('data-color')===S.color)});
+ cw.classList.toggle('on',S.color==='custom');
  $$('[data-finish]').forEach(function(n){n.setAttribute('aria-pressed',n.getAttribute('data-finish')===S.finish)});
  $$('[data-preset]').forEach(function(n){n.setAttribute('aria-pressed',+n.getAttribute('data-preset')===S.sqft)});
  $$('[data-cond]').forEach(function(n){n.setAttribute('aria-pressed',n.getAttribute('data-cond')===S.cond)});
@@ -557,7 +557,8 @@ function render(){
  baRange.value=S.ba;
  $('.ba-after').style.clipPath='inset(0 '+(100-S.ba)+'% 0 0)';
  $('.ba-line').style.left=S.ba+'%';
- if(!S.detailsTouched)details.value='Interested in '+f.name+' ('+c.name+'), about '+vals.sqft+' sq ft.';
+ if(!S.detailsTouched)details.value='Interested in '+f.name+' ('+(S.color==='custom'?'custom color '+c.base:c.name)+'), about '+vals.sqft+' sq ft.';
+ FloorEngine.refresh();
 }
 render();
 })();

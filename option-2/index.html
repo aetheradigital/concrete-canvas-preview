@@ -182,7 +182,7 @@ section{position:relative}
 .pool{position:absolute;left:38%;right:38%;top:14%;height:46%;border-radius:20px;background:linear-gradient(135deg,#2FD6E6,#0FA3B1);border:10px solid #F3EEE6;box-shadow:inset 0 0 40px #0B5E7355;display:none;overflow:hidden}
 .pool::after{content:"";position:absolute;inset:-20%;background:repeating-radial-gradient(ellipse at 30% 30%,#FFFFFF33 0 6px,transparent 6px 22px);animation:ripple 6s linear infinite}
 @keyframes ripple{from{transform:translate(0,0)}to{transform:translate(22px,14px)}}
-.scene[data-space=pool] .pool{display:block}
+.scn{position:absolute!important;inset:0;display:none}.scn.on{display:block}
 .glow{position:absolute;left:0;right:0;bottom:0;height:56%;background:linear-gradient(to top,transparent 25%,#FFFFFF30 88%,transparent);pointer-events:none}
 .tags{position:absolute;z-index:6;left:16px;bottom:16px;display:flex;gap:8px;flex-wrap:wrap}
 .tags span{background:rgba(255,255,255,.92);color:var(--ink);border-radius:999px;padding:8px 14px;font-weight:600;font-size:14px}
@@ -191,7 +191,13 @@ section{position:relative}
 .swatches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
 .sw{display:flex;flex-direction:column;align-items:stretch;gap:6px;padding:5px 5px 8px;border-radius:16px;border:1px solid var(--line);background:#fff;cursor:pointer;font-weight:600;font-size:13px;text-align:center;transition:border-color .2s,box-shadow .2s}
 .sw:hover{border-color:#CBBBA6}
-.sw i{display:block;height:46px;border-radius:12px}
+.sw i{display:block;height:46px;border-radius:12px;position:relative}
+.sw-custom{position:relative}
+.sw-custom i{background:conic-gradient(#e74c3c,#f1c40f,#2ecc71,#1abc9c,#3498db,#9b59b6,#e74c3c)}
+.sw-custom input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;border:0;padding:0}
+.sw-custom.on{border-color:var(--gulf-d);box-shadow:0 0 0 1px var(--gulf-d)}
+.sw-custom:focus-within{outline:3px solid var(--gulf);outline-offset:3px}
+.vibe{display:block;width:100%;height:28px;border-radius:8px;position:relative;overflow:hidden}
 .sw[aria-pressed=true]{border-color:var(--gulf-d);box-shadow:0 0 0 1px var(--gulf-d)}
 .readout{border-top:1px solid var(--line);padding-top:20px}
 .readout h3{margin:0;font-family:Sora,sans-serif;font-weight:600;letter-spacing:-.02em;font-size:21px}
@@ -202,9 +208,9 @@ section{position:relative}
 .ba-copy{flex:1 1 340px;min-width:0}
 .ba-wrap{flex:999 1 560px;min-width:0}
 .ba{position:relative;height:420px;border-radius:26px;overflow:hidden;touch-action:none;cursor:ew-resize;box-shadow:var(--shadow-h)}
-.ba-before{position:absolute;inset:0;background:radial-gradient(ellipse 30% 22% at 28% 38%,#4e4a44aa,transparent 70%),radial-gradient(ellipse 18% 14% at 72% 72%,#3a362fcc,transparent 70%),radial-gradient(ellipse 22% 10% at 58% 28%,#5b4a2e88,transparent 70%),radial-gradient(circle,#6f6c66 0 1px,transparent 1.5px) 0 0/9px 9px,radial-gradient(circle,#b4b1aa 0 1px,transparent 1.5px) 4px 5px/11px 11px,#9A978F}
+.ba-before{position:absolute!important;inset:0}
 .ba svg{position:absolute;inset:0;width:100%;height:100%}
-.ba-after{position:absolute;inset:0}
+.ba-after{position:absolute!important;inset:0}
 .ba-line{position:absolute;top:0;bottom:0;width:3px;margin-left:-1.5px;background:#fff;box-shadow:0 0 12px rgba(0,0,0,.2)}
 .ba-line::after{content:"";position:absolute;top:50%;left:50%;width:50px;height:50px;margin:-25px 0 0 -25px;border-radius:50%;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23066B76' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l-6 6 6 6M15 6l6 6-6 6'/%3E%3C/svg%3E") center/24px no-repeat;box-shadow:0 6px 18px rgba(0,0,0,.25)}
 .ba-lbl{position:absolute;top:16px;border-radius:999px;padding:7px 14px;font-weight:700;font-size:12px;letter-spacing:.1em}
@@ -415,7 +421,7 @@ form input:focus,form select:focus,form textarea:focus{outline:none;border-color
       </div>
       <div class="result" id="quizR">
         <div class="label" style="margin-top:18px">Your match</div>
-        <div class="result-sw sheen" id="rSw"></div>
+        <div class="result-sw" id="rSw"></div>
         <h3 id="rName"></h3>
         <p id="rWhy"></p>
         <div class="btns">
@@ -471,23 +477,15 @@ form input:focus,form select:focus,form textarea:focus{outline:none;border-color
     <span class="kicker">Floor visualizer</span>
     <h2 class="disp">See it before we pour it.</h2>
     <div class="viz">
-      <div class="scene" id="scene" data-space="garage" role="img" aria-label="Preview of the selected finish">
+      <div class="scene" id="scene" data-space="garage">
         <div class="scene-tabs" role="group" aria-label="Space">
           <button type="button" data-space="garage" aria-pressed="true">Garage</button>
           <button type="button" data-space="lanai" aria-pressed="false">Lanai</button>
           <button type="button" data-space="pool" aria-pressed="false">Pool deck</button>
         </div>
-        <div class="bg bg-garage" data-bg="garage"><div class="door"></div></div>
-        <div class="bg bg-lanai" data-bg="lanai" style="opacity:0">
-          <svg viewBox="0 0 300 300" style="left:4%" aria-hidden="true"><path d="M150 300 C150 230 140 170 160 110" fill="none" stroke="#2E6B4F" stroke-width="12" stroke-linecap="round"/><g fill="#2E8B57"><path d="M160 110 C120 80 70 82 30 110 C74 94 116 98 160 118Z"/><path d="M160 110 C132 60 92 46 54 50 C98 62 128 82 158 118Z"/><path d="M160 110 C164 66 186 36 220 22 C192 54 178 82 164 118Z"/><path d="M160 110 C200 82 240 86 262 106 C230 98 198 102 164 120Z"/><path d="M160 110 C130 120 106 146 98 180 C116 152 136 134 162 122Z"/></g></svg>
-          <div class="cage"></div>
-        </div>
-        <div class="bg bg-pool" data-bg="pool" style="opacity:0">
-          <div class="sun2"></div>
-          <svg viewBox="0 0 300 300" style="right:2%;transform:scaleX(-1)" aria-hidden="true"><path d="M150 300 C150 230 140 170 160 110" fill="none" stroke="#7A3B1F" stroke-width="12" stroke-linecap="round"/><g fill="#7A3B1F"><path d="M160 110 C120 80 70 82 30 110 C74 94 116 98 160 118Z"/><path d="M160 110 C132 60 92 46 54 50 C98 62 128 82 158 118Z"/><path d="M160 110 C164 66 186 36 220 22 C192 54 178 82 164 118Z"/><path d="M160 110 C200 82 240 86 262 106 C230 98 198 102 164 120Z"/></g></svg>
-        </div>
-        <div class="floor" data-floor><div class="pool"></div></div>
-        <div class="glow"></div>
+        <div class="scn" data-scn="garage"></div>
+        <div class="scn" data-scn="lanai"></div>
+        <div class="scn" data-scn="pool"></div>
         <div class="tags"><span data-bind="name"></span><span data-bind="color"></span></div>
       </div>
       <div class="panel">
@@ -520,13 +518,8 @@ form input:focus,form select:focus,form textarea:focus{outline:none;border-color
     </div>
     <div class="ba-wrap">
       <div class="ba" id="ba">
-        <div class="ba-before"></div>
-        <svg aria-hidden="true" viewBox="0 0 800 400" preserveAspectRatio="none">
-          <path d="M0 140 L120 150 L190 128 L300 170 L360 160 L470 215 L560 205 L640 260 L800 250" fill="none" stroke="#3b3833" stroke-width="2.5"/>
-          <path d="M300 170 L320 240 L290 330 L310 400" fill="none" stroke="#3b3833" stroke-width="2"/>
-          <path d="M560 205 L600 120 L590 40 L620 0" fill="none" stroke="#45413b" stroke-width="1.6"/>
-        </svg>
-        <div class="ba-after sheen" data-floor></div>
+        <div class="ba-before" id="baBefore"></div>
+        <div class="ba-after" id="baAfter"></div>
         <div class="ba-line"></div>
         <span class="ba-lbl a">AFTER</span>
         <span class="ba-lbl b">BEFORE</span>
@@ -567,7 +560,7 @@ form input:focus,form select:focus,form textarea:focus{outline:none;border-color
     <div class="est-out" aria-live="polite">
       <div class="label">Estimated range</div>
       <div class="est-num"><span data-bind="low"></span> – <span data-bind="high"></span></div>
-      <div class="est-floor sheen" data-floor></div>
+      <div class="est-floor" id="estFloor"></div>
       <div class="est-meta"><span data-bind="name"></span><span data-bind="color"></span><span><span data-bind="rate"></span>/sq ft</span></div>
       <p class="est-note">Sample rates for this preview — to be replaced with Concrete Canvas pricing. Every quote follows a free on-site moisture and slab check.</p>
       <a class="btn btn-ink" href="#quote">Get my exact quote</a>
@@ -675,6 +668,7 @@ form input:focus,form select:focus,form textarea:focus{outline:none;border-color
   </div>
 </footer>
 
+<script src="../assets/floor-engine.js"></script>
 <script>
 (function(){
 var FINISHES=[
@@ -719,30 +713,23 @@ var QUIZ=[
  {q:'Pick a vibe.',a:[['gulf','Gulf blues',null],['sunset','Sunset warm',null],['shell','Beachy neutral',null],['bay','Bold & dark',null]]}
 ];
 
+var CUSTOM={id:'custom',name:'Custom color',base:'#7a2e8c',light:'#d6a6e3',dark:'#33103d'};
+function pal(c){return {base:c.base,light:c.light,dark:c.dark}}
 var S={finish:'flake',color:'gulf',space:'garage',sqft:450,cond:'good',ba:55,threat:'sun',town:'Naples',quiz:[],detailsTouched:false};
 var $=function(s){return document.querySelector(s)}, $$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};
 function el(tag,attrs,html){var e=document.createElement(tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(html!=null)e.innerHTML=html;return e}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function fmt(n){return '$'+(Math.round(n/50)*50).toLocaleString('en-US')}
-function find(a,id){return a.filter(function(x){return x.id===id})[0]}
+function find(a,id){return id==='custom'&&a===COLORS?CUSTOM:a.filter(function(x){return x.id===id})[0]}
 function icon(p){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>'}
 var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 function go(id){var t=document.getElementById(id);if(t)t.scrollIntoView({behavior:reduce?'auto':'smooth'})}
 
-function tex(f,c){
- var B=c.base,L=c.light,D=c.dark;
- if(f==='flake')return 'radial-gradient(circle at 20% 30%, '+L+' 0 2px, transparent 2.6px) 0 0/13px 13px, radial-gradient(circle at 70% 60%, '+D+' 0 2.4px, transparent 3px) 0 0/17px 19px, radial-gradient(circle at 45% 85%, #ffffff 0 1.6px, transparent 2.2px) 0 0/23px 21px, radial-gradient(circle at 85% 20%, #FFB627 0 1.3px, transparent 1.9px) 0 0/31px 25px, radial-gradient(circle at 10% 70%, '+L+' 0 1.8px, transparent 2.4px) 0 0/29px 27px, '+B;
- if(f==='metallic')return 'radial-gradient(ellipse 55% 35% at 28% 32%, '+L+'cc, transparent 70%), radial-gradient(ellipse 45% 60% at 78% 68%, '+D+', transparent 70%), radial-gradient(ellipse 30% 20% at 60% 20%, #ffffff66, transparent 70%), radial-gradient(ellipse 25% 40% at 15% 80%, '+L+'88, transparent 70%), conic-gradient(from 210deg at 52% 48%, '+B+', '+L+', '+D+', '+B+', '+L+'aa, '+D+', '+B+')';
- if(f==='quartz')return 'radial-gradient(circle, '+L+' 0 1px, transparent 1.4px) 0 0/5px 5px, radial-gradient(circle, '+D+' 0 1.1px, transparent 1.5px) 2px 3px/6px 7px, radial-gradient(circle, #ffffffaa 0 .8px, transparent 1.2px) 1px 1px/7px 6px, '+B;
- if(f==='solid')return 'linear-gradient(160deg, #ffffff38 0%, transparent 38%, transparent 70%, #00000022 100%), '+B;
- if(f==='cementitious')return 'radial-gradient(ellipse 40% 30% at 25% 30%, '+L+'66, transparent 70%), radial-gradient(ellipse 35% 45% at 70% 60%, '+D+'55, transparent 70%), radial-gradient(ellipse 25% 20% at 50% 85%, '+L+'44, transparent 70%), radial-gradient(circle, #00000018 0 .7px, transparent 1px) 0 0/4px 4px, '+B;
- return 'radial-gradient(circle, #00000026 0 .8px, transparent 1.2px) 0 0/5px 5px, radial-gradient(circle, #ffffff1c 0 .8px, transparent 1.2px) 2px 2px/6px 6px, '+B;
-}
 
 /* ---- build UI ---- */
 FINISHES.forEach(function(f){
  var b=el('button',{type:'button',class:'card','data-finish':f.id,'aria-pressed':'false'},
-  '<span class="card-sw sheen" data-sw="'+f.id+'"><span class="card-tag">'+esc(f.tag)+'</span></span><span class="card-body"><h3>'+esc(f.name)+'</h3><p>'+esc(f.desc)+'</p><span class="card-best">Best for · '+esc(f.best)+'</span></span>');
+  '<span class="card-sw" data-sw="'+f.id+'"><span class="card-tag">'+esc(f.tag)+'</span></span><span class="card-body"><h3>'+esc(f.name)+'</h3><p>'+esc(f.desc)+'</p><span class="card-best">Best for · '+esc(f.best)+'</span></span>');
  b.addEventListener('click',function(){set({finish:f.id});go('visualizer')});
  $('#cards').appendChild(b);
 });
@@ -756,7 +743,21 @@ COLORS.forEach(function(c){
  var b=el('button',{type:'button',class:'sw','data-color':c.id,'aria-pressed':'false'},'<i></i>'+esc(c.name));
  b.addEventListener('click',function(){set({color:c.id})});$('#swatches').appendChild(b);
 });
+var cw=el('label',{class:'sw sw-custom',title:'Custom color'},'<i></i>Custom<input type="color" value="#7a2e8c" aria-label="Pick a custom color">');
+cw.querySelector('input').addEventListener('input',function(e){var d=FloorEngine.derive(e.target.value);CUSTOM.base=d.base;CUSTOM.light=d.light;CUSTOM.dark=d.dark;set({color:'custom'})});
+$('#swatches').appendChild(cw);
 $$('.scene-tabs button').forEach(function(b){b.addEventListener('click',function(){set({space:b.getAttribute('data-space')})})});
+
+/* realistic floor renders (recolored live) */
+var FE=FloorEngine, cur=function(){return {finish:S.finish,color:pal(find(COLORS,S.color))}};
+var SPACE_LABEL={garage:'a two-car garage',lanai:'a screened lanai',pool:'a pool deck'};
+$$('.scn').forEach(function(n){var s=n.getAttribute('data-scn');FE.bind(n,{scene:s,label:'The selected finish on '+SPACE_LABEL[s]},cur)});
+FE.bind($('#baBefore'),{scene:'garage',label:'Garage floor before: cracked, stained concrete'},function(){return {finish:'bare'}});
+FE.bind($('#baAfter'),{scene:'garage'},cur);
+FE.bind($('#estFloor'),{scene:'swatch',maxWidth:700},cur);
+FE.bind($('#rSw'),{scene:'swatch',maxWidth:700,label:'Your matched finish'},cur);
+$$('[data-sw]').forEach(function(n){var id=n.getAttribute('data-sw');FE.bind(n,{scene:'swatch',maxWidth:560},function(){return {finish:id,color:pal(find(COLORS,S.color))}})});
+$$('[data-color] i').forEach(function(n){var id=n.parentNode.getAttribute('data-color');FE.bind(n,{flat:true},function(){return {finish:S.finish,color:pal(find(COLORS,id))}})});
 PRESETS.forEach(function(p){
  var b=el('button',{type:'button',class:'pill','data-preset':p[1],'aria-pressed':'false'},esc(p[0]));
  b.addEventListener('click',function(){set({sqft:p[1]})});$('#presets').appendChild(b);
@@ -791,12 +792,13 @@ function quizStep(){
  $('#quizQ').hidden=false;$('#quizR').classList.remove('on');
  var q=QUIZ[i];$('#qText').textContent=q.q;var box=$('#qOpts');box.innerHTML='';
  q.a.forEach(function(a){
-  var inner=a[2]?icon(a[2]):'<span style="display:block;width:100%;height:28px;border-radius:8px;background:'+tex('flake',find(COLORS,a[0]))+'"></span>';
+  var inner=a[2]?icon(a[2]):'<span class="vibe"><canvas class="fe-canvas" data-vibe="'+a[0]+'" aria-hidden="true"></canvas></span>';
   var b=el('button',{type:'button',class:'opt'},inner+esc(a[1]));
   b.addEventListener('click',function(){S.quiz.push(a[0]);if(S.quiz.length===QUIZ.length)finishQuiz();quizStep()});
   box.appendChild(b);
  });
  $('#qBack').hidden=i===0;
+ requestAnimationFrame(function(){$$('[data-vibe]').forEach(function(c){FloorEngine.flat(c,{finish:'flake',color:pal(find(COLORS,c.getAttribute('data-vibe')))})})});
 }
 function finishQuiz(){
  var where=S.quiz[0],want=S.quiz[1],vibe=S.quiz[2],f,space='garage',why;
@@ -808,7 +810,6 @@ function finishQuiz(){
  var c=vibe;
  var fin=find(FINISHES,f),col=find(COLORS,c);
  $('#rName').textContent=fin.name+' · '+col.name;$('#rWhy').textContent=why;
- $('#rSw').style.background=tex(f,col);
  set({finish:f,color:c,space:space});
 }
 $('#qBack').addEventListener('click',function(){S.quiz.pop();quizStep()});
@@ -834,10 +835,7 @@ $('#again').addEventListener('click',function(){$('#qform').reset();S.detailsTou
 function set(p){for(var k in p)S[k]=p[k];render()}
 function render(){
  var f=find(FINISHES,S.finish),c=find(COLORS,S.color),k=find(CONDS,S.cond),t=find(THREATS,S.threat);
- var bg=tex(f.id,c);
- $$('[data-floor]').forEach(function(n){n.style.background=bg});
- $$('[data-sw]').forEach(function(n){n.style.background=tex(n.getAttribute('data-sw'),c)});
- $$('[data-color]').forEach(function(n){var cc=find(COLORS,n.getAttribute('data-color'));n.querySelector('i').style.background=tex(f.id,cc);n.setAttribute('aria-pressed',cc.id===S.color)});
+ $$('[data-color]').forEach(function(n){n.setAttribute('aria-pressed',n.getAttribute('data-color')===S.color)});
  $$('[data-finish]').forEach(function(n){n.setAttribute('aria-pressed',n.getAttribute('data-finish')===S.finish)});
  $$('[data-preset]').forEach(function(n){n.setAttribute('aria-pressed',+n.getAttribute('data-preset')===S.sqft)});
  $$('[data-cond]').forEach(function(n){n.setAttribute('aria-pressed',n.getAttribute('data-cond')===S.cond)});
@@ -845,7 +843,6 @@ function render(){
  $$('[data-town]').forEach(function(n){n.setAttribute('aria-pressed',n.getAttribute('data-town')===S.town)});
  $('#scene').setAttribute('data-space',S.space);
  $$('.scene-tabs button').forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-space')===S.space)});
- $$('[data-bg]').forEach(function(n){n.style.opacity=n.getAttribute('data-bg')===S.space?1:0});
  $('#tTitle').textContent=t.title;$('#tBody').textContent=t.body;
  var max=0;FINISHES.forEach(function(x){max=Math.max(max,t.r[x.id])});
  $$('[data-bar]').forEach(function(n){var id=n.getAttribute('data-bar'),v=t.r[id];n.querySelector('i').style.width=(v*20)+'%';n.lastChild.textContent=v+'/5';n.classList.toggle('best',v===max)});
@@ -856,8 +853,11 @@ function render(){
  $$('[data-bind]').forEach(function(n){n.textContent=vals[n.getAttribute('data-bind')]});
  $('#sqft').value=S.sqft;$('#baRange').value=S.ba;
  $('.ba-after').style.clipPath='inset(0 '+(100-S.ba)+'% 0 0)';$('.ba-line').style.left=S.ba+'%';
+ $$('.scn').forEach(function(n){n.classList.toggle('on',n.getAttribute('data-scn')===S.space)});
+ cw.classList.toggle('on',S.color==='custom');
  var spSel=$('#spaceSelect');if(!S.spaceTouched)spSel.value=spaceNames[S.space];
- if(!S.detailsTouched)details.value=spaceNames[S.space]+' — interested in '+f.name+' in '+c.name+', about '+vals.sqft+' sq ft.';
+ if(!S.detailsTouched)details.value=spaceNames[S.space]+' — interested in '+f.name+' in '+(S.color==='custom'?'a custom color ('+c.base+')':c.name)+', about '+vals.sqft+' sq ft.';
+ FloorEngine.refresh();
 }
 quizStep();render();
 })();

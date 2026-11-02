@@ -1,0 +1,14 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>body{margin:0;background:#000}canvas{display:block}</style></head>
+<body>
+<script type="importmap">{"imports":{"three":"/three/build/three.module.js","three/addons/":"/three/examples/jsm/"}}</script>
+<script type="module">
+import { renderPasses } from './lib.js';
+window.__go = async (name, W, H) => {
+  const mod = await import('./' + name + '.js');
+  const build = mod[Object.keys(mod).find(k => k.startsWith('build'))];
+  try { return await renderPasses(build, W, H); } catch (e) { return { error: String(e && e.stack || e) }; }
+};
+window.__ready = true;
+</script>
+</body></html>
