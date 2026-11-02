@@ -41,9 +41,10 @@ h2.disp{margin:12px 0 0;font-size:clamp(30px,4vw,48px);line-height:1.02}
 
 /* header */
 .hdr{border-bottom:1px solid var(--line);background:var(--paper)}
-.hdr .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-top:14px;padding-bottom:14px}
+.hdr .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-top:8px;padding-bottom:8px}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--navy)}
-.brand img{width:64px;height:48px;object-fit:contain}
+.brand img{display:block;width:auto;height:84px}
+@media (max-width:640px){.brand img{height:62px}}
 .brand b{display:block;font-family:Archivo,sans-serif;font-stretch:125%;font-weight:800;font-size:18px;letter-spacing:.06em;line-height:1}
 .brand span{display:block;font-family:Archivo,sans-serif;font-stretch:125%;font-weight:600;font-size:12px;letter-spacing:.42em;color:var(--teal);margin-top:4px;line-height:1}
 .nav{display:flex;flex-wrap:wrap;gap:4px 22px;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
@@ -218,9 +219,8 @@ form .btn{min-height:54px}
 
 <header class="hdr">
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="Concrete Canvas home">
-      <img src="../assets/mark.png" alt="" width="64" height="48">
-      <div><b>CONCRETE</b><span>CANVAS</span></div>
+    <a class="brand" href="#top">
+      <img src="../assets/logo-header.png" alt="Concrete Canvas — home" width="84" height="81">
     </a>
     <nav class="nav" aria-label="Main">
       <a href="#systems">Systems</a>

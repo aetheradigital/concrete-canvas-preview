@@ -56,9 +56,10 @@ section{position:relative}
 .topbar .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 20px;padding-top:9px;padding-bottom:9px}
 .topbar b{color:var(--mango);font-weight:600}
 .hdr{position:sticky;top:0;z-index:50;background:rgba(251,246,238,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.hdr .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px;padding-top:10px;padding-bottom:10px}
+.hdr .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px;padding-top:6px;padding-bottom:6px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
-.brand img{width:58px;height:44px;object-fit:contain}
+.brand img{display:block;width:auto;height:78px}
+@media (max-width:640px){.brand img{height:60px}}
 .brand b{display:block;font-family:Michroma,Sora,sans-serif;font-weight:400;font-size:15px;letter-spacing:.04em;line-height:1}
 .brand span{display:block;font-family:Michroma,Sora,sans-serif;font-size:10px;letter-spacing:.5em;color:var(--gulf-d);margin-top:6px}
 .nav{display:flex;flex-wrap:wrap;gap:4px 26px;font-weight:600;font-size:15px}
@@ -338,9 +339,8 @@ form input:focus,form select:focus,form textarea:focus{outline:none;border-color
 
 <header class="hdr">
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="Concrete Canvas home">
-      <img src="../assets/mark.png" alt="" width="58" height="44">
-      <div><b>CONCRETE</b><span>CANVAS</span></div>
+    <a class="brand" href="#top">
+      <img src="../assets/logo-header.png" alt="Concrete Canvas — home" width="78" height="75">
     </a>
     <nav class="nav" aria-label="Main">
       <a href="#systems">Finishes</a>
