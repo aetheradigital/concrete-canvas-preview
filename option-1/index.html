@@ -170,6 +170,77 @@ h2.disp{margin:12px 0 0;font-size:clamp(30px,4vw,48px);line-height:1.02}
 .spaces ul{flex:999 1 560px;min-width:0;list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
 .spaces li{border:1.5px solid var(--navy);padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:500;border-radius:2px}
 
+/* finder (quiz) */
+.finder{margin-top:40px;display:flex;flex-wrap:wrap;gap:28px;align-items:stretch}
+.quiz{flex:1 1 100%;background:#fff;border:1px solid var(--line);border-radius:4px;padding:32px}
+.quiz-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.dots{display:flex;gap:4px}.dots i{width:34px;height:4px;background:var(--line)}.dots i.on{background:var(--teal)}
+.quiz h3{margin:20px 0 18px;font-family:Archivo,sans-serif;font-stretch:118%;font-weight:800;font-size:26px;text-transform:uppercase}
+.opts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.opt{display:flex;flex-direction:column;align-items:flex-start;gap:12px;min-height:110px;padding:18px;border:1.5px solid var(--line2);border-radius:2px;background:var(--paper);cursor:pointer;text-align:left;font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;color:var(--navy);transition:border-color .15s,background .15s}
+.opt:hover{border-color:var(--navy);background:#fff}
+.opt svg{width:28px;height:28px;color:var(--teal)}
+.vibe{display:block;width:100%;height:40px;border-radius:2px;position:relative;overflow:hidden}
+.quiz-back{margin-top:16px;background:none;border:0;padding:0;min-height:44px;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.result{display:none;gap:28px;align-items:center;margin-top:20px}
+.result.on{display:flex;flex-wrap:wrap}
+.result-sw{flex:1 1 340px;min-width:0;height:240px;border-radius:2px}
+.result-copy{flex:1 1 300px;min-width:0}
+.result-copy h3{margin:8px 0 10px}
+.result-copy p{margin:0;color:var(--body)}
+.result .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.btn-outline{background:transparent;color:var(--navy);border:1.5px solid var(--navy);padding:14.5px 24px}
+.btn-outline:hover{background:var(--navy);color:#fff}
+
+/* scene tabs */
+.scene-tabs{position:absolute;z-index:6;top:16px;left:16px;display:flex;gap:2px;background:rgba(10,26,49,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);padding:4px;border-radius:2px}
+.scene-tabs button{min-height:38px;padding:0 14px;border:0;border-radius:2px;background:transparent;color:#C9D3DE;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.scene-tabs button:hover{color:#fff}
+.scene-tabs button[aria-pressed=true]{background:#fff;color:var(--navy)}
+.scn{position:absolute!important;inset:0;display:none}.scn.on{display:block}
+
+/* florida-proof */
+.proof{background:var(--paper2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:96px}
+.proof .wrap{padding-top:96px;padding-bottom:96px}
+.threats{display:flex;flex-wrap:wrap;gap:8px;margin-top:36px}
+.threat{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 16px 0 12px;border:1.5px solid var(--line2);border-radius:2px;background:#fff;color:var(--navy);cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.threat:hover{border-color:var(--navy)}
+.threat svg{width:20px;height:20px;color:var(--teal)}
+.threat[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:#fff}
+.threat[aria-pressed=true] svg{color:var(--teal-b)}
+.proof-grid{display:flex;flex-wrap:wrap;gap:1px;margin-top:24px;background:var(--line2);border:1px solid var(--line2)}
+.proof-why{flex:1 1 320px;min-width:0;background:var(--navy);color:#fff;padding:32px}
+.proof-why h3{margin:10px 0 12px;font-family:Archivo,sans-serif;font-stretch:118%;font-weight:800;font-size:24px;text-transform:uppercase;color:var(--teal-b)}
+.proof-why p{margin:0;color:var(--fog2)}
+.proof-bars{flex:999 1 520px;min-width:0;background:#fff;padding:32px;display:flex;flex-direction:column;gap:16px}
+.bar-row{display:grid;grid-template-columns:120px minmax(0,1fr) 44px;gap:14px;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.bar{height:10px;background:var(--paper2);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--teal);transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.bar-row.best .bar i{background:var(--orange)}
+.bar-row span:last-child{text-align:right;color:var(--muted)}
+.proof-note{margin:4px 0 0;font-size:13px;color:var(--muted)}
+
+/* service area */
+.area{display:flex;flex-wrap:wrap;gap:40px;align-items:center;margin-top:40px}
+.area-copy{flex:1 1 320px;min-width:0}
+.area-copy p{margin:0;color:var(--body)}
+.town-card{margin-top:24px;background:#fff;border:1px solid var(--line);border-left:0;border-radius:2px;padding:24px;box-shadow:inset 4px 0 0 var(--teal)}
+.town-card h3{margin:6px 0 8px;font-family:Archivo,sans-serif;font-stretch:118%;font-weight:800;font-size:24px;text-transform:uppercase}
+.town-card p{margin:0 0 18px;font-size:15px}
+.map{flex:999 1 560px;min-width:0;position:relative;aspect-ratio:5/4;border-radius:4px;overflow:hidden;background-color:#0E2A44;background-image:linear-gradient(#ffffff0f 1px,transparent 1px),linear-gradient(90deg,#ffffff0f 1px,transparent 1px);background-size:40px 40px;border:1px solid var(--line2)}
+.map svg.land{position:absolute;inset:0;width:100%;height:100%}
+.map .gulf-lbl{position:absolute;left:7%;top:56%;font-family:'IBM Plex Mono',monospace;font-size:clamp(11px,1.4vw,15px);letter-spacing:.32em;color:#9FB0C3;transform:rotate(-8deg)}
+.pin{position:absolute;transform:translate(-50%,-50%);display:flex;align-items:center;gap:6px;background:none;border:0;cursor:pointer;padding:6px;min-width:44px;min-height:44px}
+.pin i{flex:none;width:12px;height:12px;background:var(--orange);outline:3px solid rgba(232,115,42,.28);transition:transform .15s}
+.pin span{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:#fff;color:var(--navy);padding:3px 6px;white-space:nowrap}
+.pin:hover i{transform:scale(1.25)}
+.pin[aria-pressed=true] i{background:var(--teal-b);outline-color:rgba(60,200,216,.35)}
+.pin[aria-pressed=true] span{background:var(--navy);color:#fff}
+
+@media (max-width:900px){.opts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.pin span{display:none}.pin[aria-pressed=true] span{display:inline-block;position:relative;z-index:2}}
+@media (max-width:640px){.quiz,.proof-why,.proof-bars{padding:22px}.bar-row{grid-template-columns:84px minmax(0,1fr) 36px;font-size:12px}.pin span{font-size:10px}.scene-tabs button{padding:0 10px}}
+
 /* faq */
 .faq{margin-top:36px;border-top:1.5px solid var(--navy)}
 .faq details{border-bottom:1px solid var(--line2)}
@@ -228,10 +299,11 @@ form .btn{min-height:54px}
     </a>
     <nav class="nav" aria-label="Main">
       <a href="#systems">Systems</a>
+      <a href="#finder">Finder</a>
       <a href="#visualizer">Visualizer</a>
+      <a href="#proof">Florida-proof</a>
       <a href="#estimate">Estimate</a>
-      <a href="#process">Process</a>
-      <a href="#faq">FAQ</a>
+      <a href="#area">Service area</a>
     </nav>
     <div class="hdr-cta">
       <a class="tel" href="tel:">[PHONE]</a>
@@ -283,11 +355,51 @@ form .btn{min-height:54px}
   <div class="cards" id="cards"></div>
 </section>
 
+<section id="finder" class="wrap sec">
+  <div class="sec-head">
+    <div>
+      <div class="eyebrow">02 — Finish finder</div>
+      <h2 class="disp">Three questions. One floor.</h2>
+    </div>
+    <p>Answer three quick questions and we’ll match a system and color, then load it into the visualizer and estimator.</p>
+  </div>
+  <div class="finder">
+    <div class="quiz" id="quiz" aria-live="polite">
+      <div class="quiz-top"><span class="label">Step <b id="qNum">1</b> of 3</span><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div></div>
+      <div id="quizQ">
+        <h3 id="qText"></h3>
+        <div class="opts" id="qOpts"></div>
+        <button type="button" class="quiz-back" id="qBack" hidden>← Back</button>
+      </div>
+      <div class="result" id="quizR">
+        <div class="result-sw" id="rSw"></div>
+        <div class="result-copy">
+          <div class="label">Your match</div>
+          <h3 class="disp" id="rName"></h3>
+          <p id="rWhy"></p>
+          <div class="btns">
+            <a class="btn btn-navy" href="#visualizer">See it in my space</a>
+            <button type="button" class="btn btn-outline" id="qRestart">Start over</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="visualizer" class="wrap sec">
-  <div class="eyebrow">02 — Floor visualizer</div>
+  <div class="eyebrow">03 — Floor visualizer</div>
   <h2 class="disp">See it before we pour it.</h2>
   <div class="viz">
     <div class="scene" id="vizScene">
+      <div class="scene-tabs" role="group" aria-label="Space">
+        <button type="button" data-space="garage" aria-pressed="true">Garage</button>
+        <button type="button" data-space="lanai" aria-pressed="false">Lanai</button>
+        <button type="button" data-space="pool" aria-pressed="false">Pool deck</button>
+      </div>
+      <div class="scn" data-scn="garage"></div>
+      <div class="scn" data-scn="lanai"></div>
+      <div class="scn" data-scn="pool"></div>
       <div class="tags"><span data-bind="name"></span><span data-bind="color"></span></div>
     </div>
     <div class="panel">
@@ -312,7 +424,7 @@ form .btn{min-height:54px}
 <section class="dark" style="margin-top:56px">
   <div class="wrap ba-in">
     <div class="ba-copy">
-      <div class="eyebrow">03 — Transformation</div>
+      <div class="eyebrow">04 — Transformation</div>
       <h2 class="disp">From cracked slab to <em>finished canvas.</em></h2>
       <p>Stains, spalls and hairline cracks get ground, filled and buried under a coating built to outlast them. Drag to compare.</p>
       <div class="mono" style="margin-top:28px;font-size:13px;color:var(--fog)">[PROJECT NAME] · [CITY] · <span data-bind="short"></span></div>
@@ -332,8 +444,29 @@ form .btn{min-height:54px}
   </div>
 </section>
 
+<section id="proof" class="proof">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">05 — Florida-proof</div>
+        <h2 class="disp">Built for the Gulf Coast.</h2>
+      </div>
+      <p>Sun, salt, humidity and summer storms are hard on concrete. Pick what you’re up against to see which systems handle it best.</p>
+    </div>
+    <div class="threats" id="threats"></div>
+    <div class="proof-grid">
+      <div class="proof-why">
+        <div class="label" style="color:var(--fog)">Condition</div>
+        <h3 id="tTitle"></h3>
+        <p id="tBody"></p>
+      </div>
+      <div class="proof-bars" id="bars"></div>
+    </div>
+  </div>
+</section>
+
 <section id="estimate" class="wrap sec">
-  <div class="eyebrow">04 — Cost estimator</div>
+  <div class="eyebrow">06 — Cost estimator</div>
   <h2 class="disp">Ballpark it in 30 seconds.</h2>
   <div class="est">
     <div class="est-in">
@@ -372,9 +505,38 @@ form .btn{min-height:54px}
   </div>
 </section>
 
+<section id="area" class="wrap sec">
+  <div class="eyebrow">07 — Service area</div>
+  <h2 class="disp">Naples to Punta Gorda.</h2>
+  <div class="area">
+    <div class="area-copy">
+      <p>From the islands to inland neighborhoods. Select your town to start a quote there.</p>
+      <div class="town-card">
+        <div class="label">Selected town</div>
+        <h3 id="townName"></h3>
+        <p>Garages, lanais, pool decks and commercial floors. Free on-site estimates.</p>
+        <a class="btn btn-navy" href="#quote" id="townBtn">Quote my project</a>
+      </div>
+      <p style="font-size:13px;color:var(--muted);margin-top:12px">Sample town list for this preview — replace with the actual service area.</p>
+    </div>
+    <div class="map" id="map">
+      <svg class="land" viewBox="0 0 100 80" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M60 0 L57 6 L52 9 L55 13 L50 17 L47 24 L49 30 L53 35 L55 41 L55 48 L54 55 L52 61 L53 66 L57 71 L63 75 L70 80 L100 80 L100 0Z" fill="#C9CED3"/>
+        <path d="M60 0 L57 6 L52 9 L55 13 L50 17 L47 24 L49 30 L53 35 L55 41 L55 48 L54 55 L52 61 L53 66 L57 71 L63 75 L70 80" fill="none" stroke="#3CC8D8" stroke-width=".6"/>
+        <path d="M70 6 Q66 20 72 30 T80 52 T88 80" fill="none" stroke="#AEB4BA" stroke-width="4" opacity=".7"/>
+        <ellipse cx="41" cy="33" rx="6" ry="1.4" transform="rotate(-25 41 33)" fill="#C9CED3"/>
+        <ellipse cx="36" cy="28" rx="2" ry=".9" transform="rotate(-60 36 28)" fill="#C9CED3"/>
+        <ellipse cx="54" cy="72" rx="3.4" ry="2.2" fill="#C9CED3"/>
+        <path d="M63 28 Q60 30 57 33" fill="none" stroke="#0E2A44" stroke-width="1.2"/>
+      </svg>
+      <span class="gulf-lbl" aria-hidden="true">GULF OF MEXICO</span>
+    </div>
+  </div>
+</section>
+
 <section id="process" class="process">
   <div class="wrap">
-    <div class="eyebrow">05 — Process</div>
+    <div class="eyebrow">08 — Process</div>
     <h2 class="disp">Prep is the product.</h2>
     <ol class="steps">
       <li><span class="n">01</span><span class="t">Assess</span><span class="b">Walk the slab, test moisture and hardness, and spec the right system.</span></li>
@@ -389,7 +551,7 @@ form .btn{min-height:54px}
 
 <section class="wrap spaces">
   <div>
-    <div class="eyebrow">06 — Spaces we coat</div>
+    <div class="eyebrow">09 — Spaces we coat</div>
     <h2 class="disp" style="font-size:clamp(30px,4vw,44px)">Garage to warehouse.</h2>
   </div>
   <ul>
@@ -399,7 +561,7 @@ form .btn{min-height:54px}
 </section>
 
 <section id="faq" class="wrap sec">
-  <div class="eyebrow">07 — FAQ</div>
+  <div class="eyebrow">10 — FAQ</div>
   <h2 class="disp">Straight answers.</h2>
   <div class="faq">
     <details open><summary>Epoxy, polyaspartic or cementitious — what’s the difference?</summary><p>Epoxy builds a thick, hard base with rich color. Polyaspartic topcoats cure fast and resist UV, so they suit sunny garages and outdoor slabs. Cementitious systems — overlays and urethane cement — rebuild worn concrete or stand up to heat and washdowns in commercial spaces. We often combine them.</p></details>
@@ -422,7 +584,8 @@ form .btn{min-height:54px}
         <label>Name<input type="text" name="name" autocomplete="name" required></label>
         <label>Phone<input type="tel" name="phone" autocomplete="tel" required></label>
         <label>Email<input type="email" name="email" autocomplete="email"></label>
-        <label>Space<select name="space"><option>Garage</option><option>Basement</option><option>Patio / Lanai / Pool deck</option><option>Commercial</option><option>Industrial</option></select></label>
+        <label>Town<select name="town" id="townSelect"></select></label>
+        <label>Space<select name="space" id="spaceSelect"><option>Garage</option><option>Lanai</option><option>Pool deck</option><option>Patio / driveway</option><option>Basement</option><option>Indoor living space</option><option>Commercial</option><option>Industrial</option></select></label>
         <label class="full">Project details<textarea name="details" rows="4" id="details"></textarea></label>
         <button class="btn btn-navy full" type="submit">Request my free estimate</button>
       </form>
@@ -466,14 +629,39 @@ var COLORS=[
  {id:'sand',name:'Sandstone',base:'#b9a68a',light:'#efe3cf',dark:'#7a6a55'},
  {id:'copper',name:'Sunset Copper',base:'#9c4f26',light:'#f0a46b',dark:'#4f230c'}
 ];
-var PRESETS=[['1-Car',250],['2-Car',450],['3-Car',650],['Basement',900],['Shop',1800]];
+var PRESETS=[['1-Car',250],['2-Car',450],['3-Car',650],['Lanai',500],['Pool deck',900],['Shop',1800]];
+var TOWNS=[['Punta Gorda',72,8],['Cape Coral',56,26],['Fort Myers',66,28],['Sanibel',40,44],['Fort Myers Beach',53,47],['Estero',64,52],['Bonita Springs',62,62],['Naples',60,76],['Marco Island',54,92]];
+var THREATS=[
+ {id:'sun',label:'Sun & UV',icon:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  title:'Year-round sun',body:'Plain epoxy can amber in direct sun. Outdoor and sunny garage floors get a UV-stable topcoat, and lighter colors stay cooler under bare feet.',
+  r:{flake:5,metallic:3,quartz:5,solid:4,cementitious:5,urethane:4}},
+ {id:'salt',label:'Salt air',icon:'<path d="M3 15c2 0 2-2 4.5-2S10 15 12 15s2.5-2 4.5-2S19 15 21 15"/><path d="M3 19c2 0 2-2 4.5-2S10 19 12 19s2.5-2 4.5-2S19 19 21 19"/><path d="M12 3v7M9 7l3 3 3-3"/>',
+  title:'Salt & sand',body:'Salt spray and tracked-in sand chew up bare concrete. A sealed, non-porous surface keeps salt out of the slab and rinses clean with a hose.',
+  r:{flake:5,metallic:4,quartz:5,solid:4,cementitious:4,urethane:5}},
+ {id:'humid',label:'Humidity',icon:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>',
+  title:'Moisture from below',body:'High water tables push moisture up through slabs and cause peeling. We test every slab and use a moisture-mitigating primer when it’s needed.',
+  r:{flake:4,metallic:3,quartz:4,solid:4,cementitious:5,urethane:5}},
+ {id:'storm',label:'Summer storms',icon:'<path d="M7 17a5 5 0 1 1 1-9.9A6 6 0 0 1 19 9a4 4 0 0 1-1 8z"/><path d="M11 13l-2 4h3l-2 4"/>',
+  title:'Afternoon downpours',body:'Wet floors are slippery floors. Quartz and flake systems add texture, and any finish can take an anti-slip additive for lanais and entries.',
+  r:{flake:4,metallic:2,quartz:5,solid:3,cementitious:4,urethane:4}},
+ {id:'tires',label:'Hot tires',icon:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 4v5M12 15v5M4 12h5M15 12h5"/>',
+  title:'Hot tire pickup',body:'Tires heated on summer roads can lift weak coatings. Diamond grinding and a high-build system bond the floor into the concrete so it stays put.',
+  r:{flake:5,metallic:4,quartz:5,solid:4,cementitious:3,urethane:5}}
+];
+var QUIZ=[
+ {q:'Where’s the floor?',a:[['garage','Garage','<rect x="3" y="9" width="18" height="12" rx="1"/><path d="M2 10l10-6 10 6M7 13h10M7 17h10"/>'],['outdoor','Lanai or pool deck','<path d="M12 22V10M12 10C9 6 5 6 3 8M12 10c3-4 7-4 9-2M12 10c-1-4-4-6-7-6M12 10c1-4 4-6 7-6"/>'],['indoor','Inside the home','<path d="M3 11l9-7 9 7v10H3z"/><path d="M9 21v-6h6v6"/>'],['biz','A business','<path d="M3 21V8l9-5 9 5v13"/><path d="M8 21v-8h8v8"/>']]},
+ {q:'What matters most?',a:[['wow','The wow factor','<path d="M12 3l2.6 5.6L20 9.3l-4 4 1 5.7L12 16l-5 3 1-5.7-4-4 5.4-.7z"/>'],['grip','Grip underfoot','<path d="M4 20h16M6 16l2-8M12 16V6M18 16l-2-8"/>'],['tough','Pure toughness','<path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/>'],['budget','Best value','<circle cx="12" cy="12" r="9"/><path d="M15 9h-4a2 2 0 0 0 0 4h2a2 2 0 0 1 0 4H9M12 6v2M12 16v2"/>']]},
+ {q:'Pick a look.',a:[['teal','Cool blues',null],['copper','Warm copper',null],['sand','Natural stone',null],['navy','Bold & dark',null]]}
+];
+function icon(p){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>'}
+function byId(a,id){return a.filter(function(x){return x.id===id})[0]}
 var CONDS=[{id:'good',label:'Good',hint:'Sound, minor wear',m:1},{id:'fair',label:'Fair',hint:'Cracks, light pitting',m:1.12},{id:'rough',label:'Rough',hint:'Spalling, old coating',m:1.3}];
 
 
 var CUSTOM={id:'custom',name:'Custom color',base:'#7a2e8c',light:'#d6a6e3',dark:'#33103d'};
 function colorById(id){return id==='custom'?CUSTOM:COLORS.filter(function(x){return x.id===id})[0]}
 function pal(c){return {base:c.base,light:c.light,dark:c.dark}}
-var S={finish:'flake',color:'teal',sqft:450,cond:'good',ba:55,detailsTouched:false};
+var S={finish:'flake',color:'teal',space:'garage',sqft:450,cond:'good',ba:55,threat:'sun',town:'Naples',quiz:[],detailsTouched:false};
 var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
 function el(tag,attrs,html){var e=document.createElement(tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(html!=null)e.innerHTML=html;return e}
 function fmt(n){return '$'+(Math.round(n/50)*50).toLocaleString('en-US')}
@@ -507,7 +695,60 @@ $('#swatches').appendChild(cw);
 // realistic floor renders (recolored live)
 var FE=FloorEngine, cur=function(){return {finish:S.finish,color:pal(colorById(S.color))}};
 FE.bind($('#heroFloor'),{scene:'closeup',maxWidth:900,label:'Close-up of the selected floor finish'},cur);
-FE.bind($('#vizScene'),{scene:'garage',label:'The selected finish in a two-car garage'},cur);
+var SPACE_LABEL={garage:'a two-car garage',lanai:'a screened lanai',pool:'a pool deck'};
+$$('.scn').forEach(function(n){var s=n.getAttribute('data-scn');FE.bind(n,{scene:s,label:'The selected finish on '+SPACE_LABEL[s]},cur)});
+FE.bind($('#rSw'),{scene:'swatch',maxWidth:700,label:'Your matched finish'},cur);
+$$('.scene-tabs button').forEach(function(b){b.addEventListener('click',function(){set({space:b.getAttribute('data-space')})})});
+
+// florida-proof
+THREATS.forEach(function(t){
+ var b=el('button',{type:'button',class:'threat','data-threat':t.id,'aria-pressed':'false'},icon(t.icon)+esc(t.label));
+ b.addEventListener('click',function(){set({threat:t.id})});$('#threats').appendChild(b);
+});
+FINISHES.forEach(function(f){$('#bars').appendChild(el('div',{class:'bar-row','data-bar':f.id},'<span>'+esc(f.short)+'</span><span class="bar"><i></i></span><span></span>'))});
+$('#bars').appendChild(el('p',{class:'proof-note'},'Typical performance guide for this preview — confirm ratings with Concrete Canvas.'));
+
+// service area
+TOWNS.forEach(function(t){
+ var b=el('button',{type:'button',class:'pin','data-town':t[0],'aria-pressed':'false',style:'left:'+t[1]+'%;top:'+t[2]+'%'},'<i></i><span>'+esc(t[0])+'</span>');
+ b.addEventListener('click',function(){set({town:t[0]})});$('#map').appendChild(b);
+ $('#townSelect').appendChild(el('option',{},esc(t[0])));
+});
+$('#townSelect').appendChild(el('option',{},'Somewhere else'));
+$('#townSelect').addEventListener('change',function(e){S.town=e.target.value;render()});
+$('#townBtn').addEventListener('click',function(){$('#townSelect').value=S.town});
+$('#spaceSelect').addEventListener('change',function(){S.spaceTouched=true});
+
+// finish finder
+function quizStep(){
+ var i=S.quiz.length;
+ $$('.dots i').forEach(function(d,j){d.className=j<=Math.min(i,2)?'on':''});
+ $('#qNum').textContent=Math.min(i+1,3);
+ if(i>=QUIZ.length){$('#quizQ').hidden=true;$('#quizR').classList.add('on');FloorEngine.refresh();return}
+ $('#quizQ').hidden=false;$('#quizR').classList.remove('on');
+ var q=QUIZ[i];$('#qText').textContent=q.q;var box=$('#qOpts');box.innerHTML='';
+ q.a.forEach(function(a){
+  var inner=a[2]?icon(a[2]):'<span class="vibe"><canvas class="fe-canvas" data-vibe="'+a[0]+'" aria-hidden="true"></canvas></span>';
+  var b=el('button',{type:'button',class:'opt'},inner+esc(a[1]));
+  b.addEventListener('click',function(){S.quiz.push(a[0]);if(S.quiz.length===QUIZ.length)finishQuiz();quizStep()});
+  box.appendChild(b);
+ });
+ $('#qBack').hidden=i===0;
+ requestAnimationFrame(function(){$$('[data-vibe]').forEach(function(c){FloorEngine.flat(c,{finish:'flake',color:pal(colorById(c.getAttribute('data-vibe')))})})});
+}
+function finishQuiz(){
+ var where=S.quiz[0],want=S.quiz[1],vibe=S.quiz[2],f,space='garage',why;
+ if(want==='grip'){f='quartz';why='Textured quartz keeps bare feet and tires planted, even after a summer downpour.'}
+ else if(want==='wow'){f=where==='outdoor'?'cementitious':'metallic';why=where==='outdoor'?'A decorative overlay gives outdoor spaces a high-end, sun-ready finish.':'Hand-worked metallic gives you a one-of-a-kind, marbled depth.'}
+ else if(want==='tough'){f=where==='biz'?'urethane':'flake';why=where==='biz'?'Urethane cement shrugs off heat, hot water and chemicals in busy spaces.':'A full flake system is the go-to for hot tires, dropped tools and daily abuse.'}
+ else {f=where==='outdoor'?'cementitious':(where==='biz'?'solid':'flake');why='Great looks and long life without paying for extras you don’t need.'}
+ if(where==='outdoor')space='pool';
+ var fin=byId(FINISHES,f),col=colorById(vibe);
+ $('#rName').textContent=fin.name+' · '+col.name;$('#rWhy').textContent=why;
+ set({finish:f,color:vibe,space:space});
+}
+$('#qBack').addEventListener('click',function(){S.quiz.pop();quizStep()});
+$('#qRestart').addEventListener('click',function(){S.quiz=[];quizStep()});
 FE.bind($('#baBefore'),{scene:'garage',label:'Garage floor before: cracked, stained concrete'},function(){return {finish:'bare'}});
 FE.bind($('#baAfter'),{scene:'garage'},cur);
 FE.bind($('#estFloor'),{scene:'swatch',maxWidth:700},cur);
@@ -539,7 +780,7 @@ ba.addEventListener('pointercancel',function(){dragging=false});
 var details=$('#details');
 details.addEventListener('input',function(){S.detailsTouched=true});
 $('#qform').addEventListener('submit',function(e){e.preventDefault();this.style.display='none';$('#sent').classList.add('on')});
-$('#again').addEventListener('click',function(){$('#qform').reset();S.detailsTouched=false;$('#qform').style.display='';$('#sent').classList.remove('on');render()});
+$('#again').addEventListener('click',function(){$('#qform').reset();S.detailsTouched=false;S.spaceTouched=false;$('#qform').style.display='';$('#sent').classList.remove('on');render()});
 
 function set(p){for(var k in p)S[k]=p[k];render()}
 function render(){
@@ -548,6 +789,18 @@ function render(){
  var k=CONDS.filter(function(x){return x.id===S.cond})[0];
  $$('[data-color]').forEach(function(n){n.setAttribute('aria-pressed',n.getAttribute('data-color')===S.color)});
  cw.classList.toggle('on',S.color==='custom');
+ var t=byId(THREATS,S.threat);
+ $$('.scn').forEach(function(n){n.classList.toggle('on',n.getAttribute('data-scn')===S.space)});
+ $$('.scene-tabs button').forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-space')===S.space)});
+ $$('[data-threat]').forEach(function(n){n.setAttribute('aria-pressed',n.getAttribute('data-threat')===S.threat)});
+ $('#tTitle').textContent=t.title;$('#tBody').textContent=t.body;
+ var max=0;FINISHES.forEach(function(x){max=Math.max(max,t.r[x.id])});
+ $$('[data-bar]').forEach(function(n){var id=n.getAttribute('data-bar'),v=t.r[id];n.querySelector('i').style.width=(v*20)+'%';n.lastChild.textContent=v+'/5';n.classList.toggle('best',v===max)});
+ $$('[data-town]').forEach(function(n){n.setAttribute('aria-pressed',n.getAttribute('data-town')===S.town)});
+ $('#townName').textContent=S.town;
+ if(S.town!=='Somewhere else'&&$('#townSelect').value!==S.town)$('#townSelect').value=S.town;
+ var spaceNames={garage:'Garage',lanai:'Lanai',pool:'Pool deck'};
+ if(!S.spaceTouched)$('#spaceSelect').value=spaceNames[S.space];
  $$('[data-finish]').forEach(function(n){n.setAttribute('aria-pressed',n.getAttribute('data-finish')===S.finish)});
  $$('[data-preset]').forEach(function(n){n.setAttribute('aria-pressed',+n.getAttribute('data-preset')===S.sqft)});
  $$('[data-cond]').forEach(function(n){n.setAttribute('aria-pressed',n.getAttribute('data-cond')===S.cond)});
@@ -557,10 +810,10 @@ function render(){
  baRange.value=S.ba;
  $('.ba-after').style.clipPath='inset(0 '+(100-S.ba)+'% 0 0)';
  $('.ba-line').style.left=S.ba+'%';
- if(!S.detailsTouched)details.value='Interested in '+f.name+' ('+(S.color==='custom'?'custom color '+c.base:c.name)+'), about '+vals.sqft+' sq ft.';
+ if(!S.detailsTouched)details.value=spaceNames[S.space]+' — interested in '+f.name+' ('+(S.color==='custom'?'custom color '+c.base:c.name)+'), about '+vals.sqft+' sq ft.';
  FloorEngine.refresh();
 }
-render();
+quizStep();render();
 })();
 </script>
 <nav id="ccp-switch" aria-label="Design options">
