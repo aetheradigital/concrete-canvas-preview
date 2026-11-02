@@ -7,6 +7,8 @@
 <title>Concrete Canvas — Epoxy &amp; Cementitious Floor Coatings</title>
 <meta name="description" content="Concrete Canvas — turning concrete into art. Epoxy coatings and cementitious systems for garages, homes and commercial spaces.">
 <link rel="icon" href="../assets/favicon.png">
+<link rel="preload" as="image" href="../assets/hero-floor.jpg" media="(min-width: 901px)">
+<link rel="preload" as="image" href="../assets/hero-floor-1280.jpg" media="(max-width: 900px)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap">
@@ -51,23 +53,24 @@ h2.disp{margin:12px 0 0;font-size:clamp(30px,4vw,48px);line-height:1.02}
 .hdr-cta .btn{padding:13px 20px;font-size:13px}
 
 /* hero */
-.hero{background-color:var(--navy);background-image:linear-gradient(#ffffff0d 1px,transparent 1px),linear-gradient(90deg,#ffffff0d 1px,transparent 1px);background-size:48px 48px;color:#fff}
+.hero{position:relative;color:#fff;background-color:#05080F;background-image:linear-gradient(90deg,rgba(3,6,12,.84) 0%,rgba(3,6,12,.6) 34%,rgba(3,6,12,.12) 62%,rgba(3,6,12,0) 100%),linear-gradient(180deg,rgba(3,6,12,.35) 0%,rgba(3,6,12,0) 25%,rgba(3,6,12,0) 75%,rgba(3,6,12,.45) 100%),url("../assets/hero-floor.jpg");background-size:cover;background-position:center 60%;background-repeat:no-repeat}
+@media (max-width:900px){.hero{background-image:linear-gradient(180deg,rgba(3,6,12,.78) 0%,rgba(3,6,12,.55) 55%,rgba(3,6,12,.7) 100%),url("../assets/hero-floor-1280.jpg")}}
 .hero-in{display:flex;flex-wrap:wrap;gap:56px;align-items:center;padding-top:88px;padding-bottom:72px}
 .hero-copy{flex:999 1 520px;min-width:0}
 .hero-kicker{display:flex;align-items:center;gap:12px;color:var(--fog)}
 .hero-kicker i{display:inline-block;width:32px;height:2px;background:var(--orange)}
-.hero h1{margin:22px 0 0;font-size:clamp(40px,6vw,76px);line-height:.98;letter-spacing:-.01em}
+.hero h1{text-shadow:0 2px 24px rgba(0,0,0,.45);margin:22px 0 0;font-size:clamp(40px,6vw,76px);line-height:.98;letter-spacing:-.01em}
 .hero h1 em{font-style:normal;color:var(--teal-b)}
 .hero p{margin:26px 0 0;max-width:560px;font-size:19px;color:var(--fog2)}
 .hero-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
-.tile{flex:1 1 380px;min-width:0;max-width:480px;border:1px solid var(--line-d);background:var(--navy2);padding:14px;border-radius:4px}
+.tile{flex:1 1 380px;min-width:0;max-width:480px;border:1px solid rgba(255,255,255,.16);background:rgba(8,16,30,.72);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);padding:14px;border-radius:4px;box-shadow:0 24px 60px rgba(0,0,0,.45)}
 .tile-floor{height:300px;border-radius:2px;position:relative;overflow:hidden}
 .sheen::after{content:"";position:absolute;inset:0;background:linear-gradient(155deg,#ffffff38 0%,transparent 38%);pointer-events:none}
-.spec3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line-d);margin-top:14px;font-family:'IBM Plex Mono',monospace}
-.spec3 div{background:var(--navy2);padding:12px 10px}
+.spec3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:rgba(255,255,255,.14);margin-top:14px;font-family:'IBM Plex Mono',monospace}
+.spec3 div{background:rgba(8,16,30,.85);padding:12px 10px}
 .spec3 small{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fog)}
 .spec3 strong{display:block;font-size:14px;margin-top:4px}
-.strip{border-top:1px solid #22344F}
+.strip{position:relative;border-top:1px solid rgba(255,255,255,.14);background:rgba(3,6,12,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 .strip .wrap{display:flex;flex-wrap:wrap;gap:10px 40px;padding-top:18px;padding-bottom:18px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--fog2)}
 .strip b{color:var(--orange);font-weight:400}
 
