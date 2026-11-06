@@ -38,6 +38,21 @@ def fe(scene, finish, color='teal', cls='layer', cycle=None, maxw=900, extra='')
     return f'<div class="{cls}" data-fe="{scene}" data-finish="{finish}" data-color="{color}" data-maxw="{maxw}"{c}{extra}></div>'
 
 
+# Before/after pairs shown on each landing page (first one opens) and its section headline
+BA_SETS = {'glow-up': ['flake', 'metallic'], 'floor-envy': ['flake', 'metallic'], 'commercial': ['solid', 'quartz', 'polished'],
+           'bay-day': ['solid', 'flake'], 'listing-ready': ['metallic', 'flake']}
+BA_HEAD = {'glow-up': 'Same garage. New floor.', 'floor-envy': 'This could be your garage.', 'commercial': 'Same space. Built to take it.',
+           'bay-day': 'Same bays. Better first impression.', 'listing-ready': 'The photo buyers will see.'}
+
+# Before/after photo pairs (assets/ba/<key>-before.jpg / -after.jpg); focus point keeps the floor in frame.
+PHOTO_POS = {'flake': '50% 62%', 'metallic': '50% 64%', 'quartz': '50% 66%', 'solid': '50% 62%', 'polished': '50% 66%'}
+
+
+def photo(R, key, tag):
+    return (f'<img class="layer ph-img" src="{R}assets/ba/{key}-{tag}.jpg" alt="" loading="lazy" decoding="async" '
+            f'style="object-position:{PHOTO_POS.get(key, "50% 60%")}">')
+
+
 def brand(R):
     return f'<div class="cr-brand"><img src="{R}campaigns/assets/avatar.png" alt="">Concrete Canvas</div>'
 
@@ -53,13 +68,20 @@ def creative(c, R, story=False):
     kick = f'<div class="cr-kick">{E(c["kick"])}</div>' if c.get('kick') else ''
     h = f'<h3 class="cr-h{" o" if c.get("orange") else ""}">{c["h"]}</h3>' if c.get('h') else ''
     scene = c.get('scene', 'garage'); fin = c.get('finish', 'flake'); colr = c.get('color', 'teal')
+    ph = c.get('photo')  # real before/after photo pair in assets/ba/ instead of the live render
+
+    def A():
+        return photo(R, ph, 'after') if ph else fe(scene, fin, colr)
+
+    def Bf():
+        return photo(R, ph, 'before') if ph else fe(scene, 'bare', 'teal')
     label = E(c.get('alt', 'Ad creative'))
     if t == 'door':
-        body = (fe(scene, fin, colr) + '<div class="cr-door"></div><div class="shade top"></div>'
+        body = (A() + '<div class="cr-door"></div><div class="shade top"></div>'
                 + '<span class="cr-spark" style="left:30%;top:68%"></span><span class="cr-spark" style="left:72%;top:78%;animation-delay:1.1s"></span>'
                 + f'<div class="cr-in">{brand(R)}{kick}{h}{sub}<div style="margin-top:auto">{chips}{btn}</div></div>')
     elif t == 'wipe':
-        body = (fe(scene, 'bare', 'teal') + f'<div class="layer cr-wipe" style="z-index:1">{fe(scene, fin, colr)}</div><div class="cr-wipe-line"></div><div class="shade both"></div>'
+        body = (Bf() + f'<div class="layer cr-wipe" style="z-index:1">{A()}</div><div class="cr-wipe-line"></div><div class="shade both"></div>'
                 + '<span class="cr-tag light cr-ba-lbl b" style="right:5cqw;top:22cqw">Before</span><span class="cr-tag cr-ba-lbl a" style="right:5cqw;top:22cqw;background:var(--teal)">After</span>'
                 + f'<div class="cr-in">{brand(R)}{kick}{h}<div style="margin-top:auto">{sub}{chips}{btn}</div></div>')
     elif t == 'cycle':
@@ -67,39 +89,40 @@ def creative(c, R, story=False):
                 + f'<span class="cr-tag light cr-cycle-lbl" data-cycle-label>{E(c.get("first", ""))}</span>'
                 + f'<div class="cr-in">{brand(R)}<div style="margin-top:auto"></div>{kick}{h}{sub}{chips}{btn}</div>')
     elif t == 'split':
-        body = (f'<div class="cr-split"><div>{fe(scene, "bare", "teal")}<span class="cr-tag light tag">{E(c["left"])}</span></div>'
-                f'<div>{fe(scene, fin, colr)}<span class="cr-tag tag" style="background:var(--teal)">{E(c["right"])}</span></div></div>'
+        body = (f'<div class="cr-split"><div>{Bf()}<span class="cr-tag light tag">{E(c["left"])}</span></div>'
+                f'<div>{A()}<span class="cr-tag tag" style="background:var(--teal)">{E(c["right"])}</span></div></div>'
                 + '<div class="shade top"></div><div class="cr-eyes"><i></i><i></i></div>'
                 + f'<div class="cr-in">{brand(R)}{kick}{h}</div>')
     elif t == 'notice':
         lines = ''.join(f'<p>{x}</p>' for x in c['lines'])
-        body = (fe(scene, fin, colr) + '<div class="shade bot"></div>'
+        body = (A() + '<div class="shade bot"></div>'
                 + f'<div class="cr-notice"><b>{E(c["title"])}</b>{lines}<span class="stamp">{E(c["stamp"])}</span></div>'
                 + f'<div class="cr-in bottom">{h}{btn}</div>')
     elif t == 'spec':
         cells = ''.join(f'<div><small>{E(a)}</small><b>{E(b)}</b></div>' for a, b in c['spec'])
-        body = (fe(scene, fin, colr) + '<div class="layer" style="z-index:2;background:linear-gradient(90deg,rgba(6,14,28,.94) 0%,rgba(6,14,28,.82) 55%,rgba(6,14,28,.35) 100%)"></div>'
+        body = (A() + '<div class="layer" style="z-index:2;background:linear-gradient(90deg,rgba(6,14,28,.94) 0%,rgba(6,14,28,.82) 55%,rgba(6,14,28,.35) 100%)"></div>'
                 + f'<div class="cr-in tight">{brand(R)}{kick}{h.replace("cr-h", "cr-h sm", 1)}<div style="margin-top:auto"></div><div class="cr-spec">{cells}</div>{btn}</div>')
     elif t == 'clock':
-        body = (fe(scene, fin, colr) + '<div class="layer" style="z-index:2;background:radial-gradient(circle at 70% 40%,rgba(6,14,28,.35),rgba(6,14,28,.9) 70%)"></div>'
+        body = (A() + '<div class="layer" style="z-index:2;background:radial-gradient(circle at 70% 40%,rgba(6,14,28,.35),rgba(6,14,28,.9) 70%)"></div>'
                 + f'<div class="cr-in">{brand(R)}{kick}{h}<div style="display:flex;align-items:center;gap:5cqw;margin-top:auto">'
                 + f'<div class="cr-clock"><i class="hh"></i><i class="mm"></i></div><div class="cr-time">{c["times"]}</div></div>{sub}{btn}</div>')
     elif t == 'oil':
-        body = (fe(scene, fin, colr) + '<div class="shade both"></div><div class="layer" style="z-index:2;background:linear-gradient(0deg,rgba(6,14,28,.75) 0%,rgba(6,14,28,0) 40%)"></div><span class="cr-drop"></span><span class="cr-rag"></span>'
+        body = (A() + '<div class="shade both"></div><div class="layer" style="z-index:2;background:linear-gradient(0deg,rgba(6,14,28,.75) 0%,rgba(6,14,28,0) 40%)"></div><span class="cr-drop"></span><span class="cr-rag"></span>'
                 + f'<div class="cr-in">{brand(R)}{kick}{h}<div style="margin-top:auto">{sub}{chips}{btn}</div></div>')
     elif t == 'list':
         items = ''.join(f'<li>{E(x)}</li>' for x in c['items'])
-        body = (fe(scene, fin, colr) + '<div class="layer" style="z-index:2;background:linear-gradient(180deg,rgba(6,14,28,.86) 0%,rgba(6,14,28,.55) 45%,rgba(6,14,28,.88) 100%)"></div>'
+        body = (A() + '<div class="layer" style="z-index:2;background:linear-gradient(180deg,rgba(6,14,28,.86) 0%,rgba(6,14,28,.55) 45%,rgba(6,14,28,.88) 100%)"></div>'
                 + f'<div class="cr-in">{brand(R)}{kick}{h}<div style="margin-top:auto"></div><ul class="cr-list">{items}</ul>{btn}</div>')
     elif t == 'mls':
         body = ('<div class="layer" style="background:linear-gradient(160deg,#13315C,#0A1A31)"></div>'
-                + f'<div class="cr-mls"><div class="ph">{fe(scene, "bare", "teal")}<div class="layer cr-fade" style="z-index:2">{fe(scene, fin, colr)}</div>'
+                + f'<div class="cr-mls"><div class="ph">{Bf()}<div class="layer cr-fade" style="z-index:2">{A()}</div>'
                 + f'<span class="badge">{E(c["badge"])}</span><span class="dot">{E(c["dot"])}</span></div>'
                 + f'<div class="meta"><div class="price">{E(c["price"])}</div><div class="facts">{c["facts"]}</div></div></div>'
                 + f'<div class="cr-in tight">{brand(R)}<div style="margin-top:auto"></div>{h.replace("cr-h", "cr-h sm", 1)}{btn}</div>')
     else:
         raise ValueError(t)
-    return f'<div class="cr{s}" role="img" aria-label="{label}">{body}</div>'
+    hp = ' has-photo' if ph else ''
+    return f'<div class="cr{s}{hp}" role="img" aria-label="{label}">{body}</div>'
 
 
 def feed(ad, R, platform='Sponsored'):
@@ -346,6 +369,21 @@ def landing_page(c):
     {picks}
   </div></section>
 
+  <section class="lp-sec" style="padding-top:0"><div class="wrap lp-ba" data-ba data-ba-set="{",".join(BA_SETS.get(c["slug"], ["flake"]))}" data-ba-slider>
+    <span class="kick">Before &amp; After</span>
+    <h2 class="disp">{tc(BA_HEAD.get(c["slug"], "See the difference."))}</h2>
+    <p class="lead">Pick a project, then drag the slider to compare.</p>
+    <div class="lp-ba-tabs" data-ba-tabs role="group" aria-label="Before and after projects"></div>
+    <div class="lp-ba-frame" data-ba-frame>
+      <img data-ba-img="before" alt="" decoding="async" draggable="false">
+      <img data-ba-img="after" alt="" decoding="async" draggable="false">
+      <div class="lp-ba-line" data-ba-line></div>
+      <span class="lp-ba-lbl a">After</span><span class="lp-ba-lbl b">Before</span>
+    </div>
+    <label class="lp-ba-ctl">Compare<input type="range" min="0" max="100" value="55" data-ba-range></label>
+    <p class="lp-ba-cap" data-ba-cap></p>
+  </div></section>
+
   <section class="lp-sec" style="padding-top:0"><div class="wrap"><div class="lp-proof">{proof}</div></div></section>
 
   <section class="lp-sec" style="padding-top:0"><div class="wrap">
@@ -366,6 +404,7 @@ def landing_page(c):
   </div></div></section>
 </main>
 <footer class="wrap lp-foot"><span>© 2026 Concrete Canvas · Licensed &amp; insured · [LICENSE #]</span><span>Preview only — this form isn’t connected yet.</span></footer>
+<script src="{R}assets/ba-photos.js" data-base="{R}"></script>
 <div class="lp-callbar"><a class="btn btn-ghost" style="color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.35)" href="tel:">Call [PHONE]</a><a class="btn btn-orange" href="#start">{E(L["submit_short"])}</a></div>'''
     return page(f'{L["title"]} | Concrete Canvas', L['sub'], R, body, cls='lp')
 
