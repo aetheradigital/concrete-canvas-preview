@@ -8,7 +8,7 @@ Writes:
   <lp>/index.html                   no-menu landing page with two-step form
   thanks/index.html                 shared thank-you page (content picked by ?c=<slug>)
 """
-import html, json, os, pathlib
+import html, json, os, pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 E = html.escape
@@ -155,6 +155,40 @@ def page(title, desc, R, body, extra_head='', cls=''):
 
 # ------------------------------------------------------------------ campaign data
 from campaigns_data import CAMPAIGNS  # noqa: E402
+import sys as _sys  # noqa: E402
+_sys.path.insert(0, str(ROOT / 'tools'))
+from titlecase import tc, process_html  # noqa: E402
+
+# Title Case for every heading-like field (headlines, buttons, tags, labels).
+# Body copy, ad primary text, descriptions, list bullets and questions stay as written.
+TC_KEYS = {'label', 'kick', 'h', 'tag', 'button', 'btn', 'headline', 'name', 'title', 'why_kick', 'why_h', 'submit',
+           'submit_short', 'steps_h', 'refH', 'refBtn', 'listH', 'listKick', 'hub_kick', 'kicker', 'h1', 'form_title',
+           'cta_h', 'cta', 'badge', 'left', 'right', 'first', 'retarget'}
+TC_LISTS = {'chips', 'links', 'headlines', 'hub_tags', 'options'}
+TC_TUPLES = {'steps': (0,), 'cards': (1,), 'proof': (1,), 'ideas': (0, 1), 'notes': (0,), 'facts': (0,), 'spec': (0, 1), 'options': (0,)}
+
+
+def _tc_ok(v):
+    return isinstance(v, str) and not v.endswith('?') and not re.fullmatch(r'[a-z_]+', v)
+
+
+def titlecase_data(o):
+    if isinstance(o, dict):
+        for k, v in o.items():
+            if k in TC_KEYS and _tc_ok(v):
+                o[k] = tc(v)
+            elif k in TC_TUPLES and isinstance(v, list) and v and isinstance(v[0], (tuple, list)):
+                o[k] = [type(t)(tc(x) if i in TC_TUPLES[k] and _tc_ok(x) else x for i, x in enumerate(t)) for t in v]
+            elif k in TC_LISTS and isinstance(v, list):
+                o[k] = [tc(x) if _tc_ok(x) else x for x in v]
+            else:
+                titlecase_data(v)
+    elif isinstance(o, list):
+        for x in o:
+            titlecase_data(x)
+
+
+titlecase_data(CAMPAIGNS)
 
 
 def campaign_page(c):
@@ -410,7 +444,7 @@ def hub_page():
 
 
 def write(rel, text):
-    p = ROOT / rel; p.parent.mkdir(parents=True, exist_ok=True); p.write_text(text)
+    p = ROOT / rel; p.parent.mkdir(parents=True, exist_ok=True); p.write_text(process_html(text))
     print('wrote', rel)
 
 
