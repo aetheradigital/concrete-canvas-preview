@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Concrete Canvas — Epoxy &amp; Cementitious Floor Coatings</title>
-<meta name="description" content="Concrete Canvas — turning concrete into art. Epoxy coatings and cementitious systems for garages, homes and commercial spaces.">
+<meta name="description" content="Concrete Canvas — turning concrete into art. Epoxy coatings and cementitious systems for garages, homes and commercial spaces, serving clients nationwide.">
 <link rel="icon" href="../assets/favicon.png">
 <link rel="preload" as="image" href="../assets/hero-floor.jpg" media="(min-width: 901px)">
 <link rel="preload" as="image" href="../assets/hero-floor-1280.jpg" media="(max-width: 900px)">
@@ -339,7 +339,7 @@ form .btn{min-height:54px}
       <span><b>■</b> Commercial</span>
       <span><b>■</b> Industrial</span>
       <span><b>■</b> [X]-Year Warranty</span>
-      <span><b>■</b> Serving [SERVICE AREA]</span>
+      <span><b>■</b> Serving Clients Nationwide</span>
     </div>
   </div>
 </section>
@@ -507,17 +507,17 @@ form .btn{min-height:54px}
 
 <section id="area" class="wrap sec">
   <div class="eyebrow">07 — Service Area</div>
-  <h2 class="disp">Naples to Punta Gorda.</h2>
+  <h2 class="disp">Nationwide. Rooted in Naples.</h2>
   <div class="area">
     <div class="area-copy">
-      <p>From the islands to inland neighborhoods. Select your town to start a quote there.</p>
+      <p>Based in Southwest Florida, taking projects nationwide. Select a local town, or choose Elsewhere in the U.S. to start a quote anywhere in the country.</p>
       <div class="town-card">
         <div class="label">Selected Town</div>
         <h3 id="townName"></h3>
         <p>Garages, lanais, pool decks and commercial floors. Free on-site estimates.</p>
         <a class="btn btn-navy" href="#quote" id="townBtn">Quote My Project</a>
       </div>
-      <p style="font-size:13px;color:var(--muted);margin-top:12px">Sample town list for this preview — replace with the actual service area.</p>
+      <p style="font-size:13px;color:var(--muted);margin-top:12px">We serve clients nationwide. The map shows our Southwest Florida home base (sample town list for this preview).</p>
     </div>
     <div class="map" id="map">
       <svg class="land" viewBox="0 0 100 80" preserveAspectRatio="none" aria-hidden="true">
@@ -606,7 +606,7 @@ form .btn{min-height:54px}
       <div class="label" style="color:var(--fog2)">Turning Concrete Into Art</div>
     </div>
     <div><div class="label">Systems</div><span>Flake · Metallic · Quartz</span><span>Solid · Cementitious</span><span>Urethane Cement</span></div>
-    <div><div class="label">Contact</div><span>[PHONE]</span><span>[EMAIL]</span><span>[SERVICE AREA]</span></div>
+    <div><div class="label">Contact</div><span>[PHONE]</span><span>[EMAIL]</span><span>Nationwide Service</span></div>
   </div>
   <div class="wrap ftr-bot"><span>© 2026 Concrete Canvas</span><span>Licensed &amp; Insured · [LICENSE #]</span></div>
 </footer>
@@ -714,7 +714,7 @@ TOWNS.forEach(function(t){
  b.addEventListener('click',function(){set({town:t[0]})});$('#map').appendChild(b);
  $('#townSelect').appendChild(el('option',{},esc(t[0])));
 });
-$('#townSelect').appendChild(el('option',{},'Somewhere else'));
+$('#townSelect').appendChild(el('option',{},'Elsewhere in the U.S.'));
 $('#townSelect').addEventListener('change',function(e){S.town=e.target.value;render()});
 $('#townBtn').addEventListener('click',function(){$('#townSelect').value=S.town});
 $('#spaceSelect').addEventListener('change',function(){S.spaceTouched=true});
@@ -798,7 +798,7 @@ function render(){
  $$('[data-bar]').forEach(function(n){var id=n.getAttribute('data-bar'),v=t.r[id];n.querySelector('i').style.width=(v*20)+'%';n.lastChild.textContent=v+'/5';n.classList.toggle('best',v===max)});
  $$('[data-town]').forEach(function(n){n.setAttribute('aria-pressed',n.getAttribute('data-town')===S.town)});
  $('#townName').textContent=S.town;
- if(S.town!=='Somewhere else'&&$('#townSelect').value!==S.town)$('#townSelect').value=S.town;
+ if(S.town!=='Elsewhere in the U.S.'&&$('#townSelect').value!==S.town)$('#townSelect').value=S.town;
  var spaceNames={garage:'Garage',lanai:'Lanai',pool:'Pool Deck'};
  if(!S.spaceTouched)$('#spaceSelect').value=spaceNames[S.space];
  $$('[data-finish]').forEach(function(n){n.setAttribute('aria-pressed',n.getAttribute('data-finish')===S.finish)});

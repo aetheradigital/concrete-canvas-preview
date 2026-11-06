@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Concrete Canvas — Southwest Florida Epoxy &amp; Concrete Coatings</title>
-<meta name="description" content="Concrete Canvas — turning concrete into art across Southwest Florida. Epoxy coatings and cementitious systems for garages, lanais, pool decks and businesses.">
+<meta name="description" content="Concrete Canvas — turning concrete into art, from Southwest Florida to clients nationwide. Epoxy coatings and cementitious systems for garages, lanais, pool decks and businesses.">
 <link rel="icon" href="../assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -339,7 +339,7 @@ form input:focus,form select:focus,form textarea:focus{outline:none;border-color
 
 <div class="topbar">
   <div class="wrap">
-    <span>☀ Serving <b>[SERVICE AREA]</b> — Naples to Fort Myers and beyond</span>
+    <span>☀ Serving <b>Clients Nationwide</b> — Based in Southwest Florida</span>
     <span>Call or Text <b>[PHONE]</b></span>
   </div>
 </div>
@@ -574,14 +574,14 @@ form input:focus,form select:focus,form textarea:focus{outline:none;border-color
   <div class="wrap">
     <div class="map-copy">
       <span class="kicker">Service Area</span>
-      <h2 class="disp">Coast to Coast-ish.</h2>
-      <p class="lede">From the islands to the inland neighborhoods. Tap your town to start a quote there.</p>
+      <h2 class="disp">Coast to Coast. For Real.</h2>
+      <p class="lede">Rooted on the Gulf Coast, working nationwide. Tap a local town, or pick Elsewhere in the U.S. to start a quote anywhere in the country.</p>
       <div class="town-card" id="townCard">
         <h3 id="townName"></h3>
         <p>Garages, lanais, pool decks and commercial floors. Free on-site estimates.</p>
         <a class="btn btn-sun" href="#quote" id="townBtn">Quote My Project</a>
       </div>
-      <p style="font-size:13px;color:var(--muted);margin-top:12px">Sample town list for this preview — replace with the actual service area.</p>
+      <p style="font-size:13px;color:var(--muted);margin-top:12px">We serve clients nationwide. The map shows our Southwest Florida home base (sample town list for this preview).</p>
     </div>
     <div class="map" id="map">
       <svg class="land" viewBox="0 0 100 80" preserveAspectRatio="none" aria-hidden="true">
@@ -782,7 +782,7 @@ TOWNS.forEach(function(t){
  b.addEventListener('click',function(){set({town:t[0]})});$('#map').appendChild(b);
  $('#townSelect').appendChild(el('option',{},esc(t[0])));
 });
-$('#townSelect').appendChild(el('option',{},'Somewhere else'));
+$('#townSelect').appendChild(el('option',{},'Elsewhere in the U.S.'));
 $('#townSelect').addEventListener('change',function(e){S.town=e.target.value;render()});
 
 /* quiz */
@@ -848,7 +848,7 @@ function render(){
  var max=0;FINISHES.forEach(function(x){max=Math.max(max,t.r[x.id])});
  $$('[data-bar]').forEach(function(n){var id=n.getAttribute('data-bar'),v=t.r[id];n.querySelector('i').style.width=(v*20)+'%';n.lastChild.textContent=v+'/5';n.classList.toggle('best',v===max)});
  $('#townName').textContent=S.town;
- if($('#townSelect').value!==S.town&&S.town!=='Somewhere else')$('#townSelect').value=S.town;
+ if($('#townSelect').value!==S.town&&S.town!=='Elsewhere in the U.S.')$('#townSelect').value=S.town;
  var spaceNames={garage:'Garage',lanai:'Lanai',pool:'Pool Deck'};
  var vals={name:f.name,short:f.short,desc:f.desc,color:c.name,rate:'$'+f.lo+'–'+f.hi,sqft:S.sqft.toLocaleString('en-US'),low:fmt(S.sqft*f.lo*k.m),high:fmt(S.sqft*f.hi*k.m)};
  $$('[data-bind]').forEach(function(n){n.textContent=vals[n.getAttribute('data-bind')]});
